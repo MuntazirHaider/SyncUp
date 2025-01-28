@@ -28,7 +28,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 // route
-import queryString from "query-string";
+import qs from "query-string";
 import axios from "axios";
 import { useModal } from "@/hooks/use-modal-store";
 // route
@@ -123,7 +123,7 @@ const ChatItem = ({
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const url = queryString.stringifyUrl({
+      const url = qs.stringifyUrl({
         url: `${socketUrl}/${id}`,
         query: socketQuery,
       });
