@@ -42,6 +42,7 @@ const formSchema = z.object({
             parsed.type.trim() !== ""
           );
         } catch (error) {
+          console.log(error);
           return false;
         }
       },
@@ -76,8 +77,6 @@ const MessageFileModal = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log("VALUES", values, apiUrl, query);
-
       const url = qs.stringifyUrl({
         url: apiUrl || "",
         query: query,

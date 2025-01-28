@@ -18,11 +18,6 @@ export default async function handler(
 
     const { content, fileUrl } = req.body;
     const { conversationId } = req.query;
-
-    console.log("REQ_BODY", content, fileUrl);
-    
-    console.log("1PASSED");
-    
     
     if (!conversationId)
       return res.status(404).json({ message: "Conversation ID missing" });
@@ -61,7 +56,6 @@ export default async function handler(
     
     if (!conversation)
       return res.status(404).json({ message: "Conversation not found" });
-    console.log("2PASSED");
     
     const member =
     conversation.memberOne.profileId === profile.id
@@ -71,7 +65,6 @@ export default async function handler(
     if (!member) {
       return res.status(404).json({ message: "Member not found" });
     }
-    console.log("3PASSED");
     
     const message = await db.directMessage.create({
       data: {
@@ -89,11 +82,9 @@ export default async function handler(
       },
     });
     
-    console.log("4PASSED");
     const channelKey = `chat:${conversationId}:messages`;
     res?.socket?.server?.io?.emit(channelKey, message);
 
-    console.log("5PASSED");
     return res.status(200).json(message);
   } catch (error) {
     console.log("[DIRECT_MESSAGES_POST]", error);

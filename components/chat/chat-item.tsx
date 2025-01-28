@@ -16,7 +16,6 @@ import {
   ShieldCheck,
   Trash,
   Video,
-  X,
 } from "lucide-react";
 //
 import Image from "next/image";

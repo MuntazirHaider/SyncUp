@@ -52,6 +52,7 @@ const formSchema = z.object({
             parsed.type.trim() !== ""
           );
         } catch (error) {
+          console.log(error);
           return false;
         }
       },

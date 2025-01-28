@@ -37,8 +37,6 @@ const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
       content: "",
     },
   });
-
-  console.log("URL", apiUrl);
   
   const isLoading = form.formState.isSubmitting;
 
