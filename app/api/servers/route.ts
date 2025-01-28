@@ -9,6 +9,10 @@ export async function POST(req: Request) {
     const { name, imageUrl } = await req.json();
     const profile = await currentProfile();
 
+    if (!name || !imageUrl) {
+      return new NextResponse("Required Fields Missing", { status: 401 });
+    }
+
     if (!profile) {
       return new NextResponse("Unauthorized User", { status: 401 });
     }

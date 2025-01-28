@@ -34,7 +34,29 @@ const formSchema = z.object({
     .string()
     .min(1, { message: "Server name is required" })
     .max(20, { message: "Server names must be at most 20 characters long" }),
-  imageUrl: z.string().min(1, { message: "Server image is required" }),
+  imageUrl: z
+    .string()
+    .min(1, { message: "Attachment is required" })
+    .refine(
+      (data) => {
+        try {
+          const parsed = JSON.parse(data);
+          return (
+            typeof parsed === "object" &&
+            parsed !== null &&
+            typeof parsed.url === "string" &&
+            parsed.url.trim() !== "" &&
+            typeof parsed.type === "string" &&
+            parsed.type.trim() !== "" &&
+            typeof parsed.name === "string" &&
+            parsed.type.trim() !== ""
+          );
+        } catch (error) {
+          return false;
+        }
+      },
+      { message: "Invalid file data format" }
+    ),
 });
 
 const ServerModal = () => {
@@ -47,7 +69,14 @@ const ServerModal = () => {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: { name: "", imageUrl: "" },
+    defaultValues: {
+      name: "",
+      imageUrl: JSON.stringify({
+        url: "",
+        type: "",
+        name: "",
+      }),
+    },
   });
 
   const isLoading = form.formState.isSubmitting;
