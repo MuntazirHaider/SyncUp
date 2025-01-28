@@ -6,8 +6,6 @@ import "@livekit/components-styles";
 //
 import { useEffect, useState } from "react";
 import { useUser } from "@clerk/clerk-react";
-// prisma
-import { Channel } from "@prisma/client";
 // icons
 import { Loader2 } from "lucide-react";
 
@@ -21,8 +19,6 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
   const { user } = useUser();
   const [token, setToken] = useState("");
 
-  console.log("USER", user);
-
   useEffect(() => {
     if (!user?.firstName || !user?.lastName) return;
 
@@ -34,8 +30,7 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
           `/api/livekit?room=${chatId}&username=${name}`,
           { method: "GET" }
         );
-        console.log("DATA", resp);
-        
+
         const data = await resp.json();
         setToken(data.token);
       } catch (error) {

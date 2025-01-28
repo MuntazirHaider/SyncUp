@@ -11,7 +11,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import NavigationItem from "./navigation-item";
 import { ModeToggle } from "@/components/mode-toggle";
 import { UserButton } from "@clerk/nextjs";
-import UserAvatar from "../user-avatar";
 import Logo from "../logo";
 
 const NavigationSidebar = async () => {

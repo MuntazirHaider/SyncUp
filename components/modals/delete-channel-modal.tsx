@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import qs from "query-string";
 
 const DeleteChannelModal = () => {
-  const { onOpen, isOpen, onClose, type, data } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
 
   const { server, channel } = data;
   const [isLoading, setIsLoading] = useState(false);

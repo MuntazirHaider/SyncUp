@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -53,6 +52,7 @@ const formSchema = z.object({
             parsed.type.trim() !== ""
           );
         } catch (error) {
+          console.log(error);
           return false;
         }
       },

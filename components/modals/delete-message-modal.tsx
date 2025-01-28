@@ -16,14 +16,12 @@ import { useModal } from "@/hooks/use-modal-store";
 import { useState } from "react";
 // route
 import axios from "axios";
-import { useRouter } from "next/navigation";
 import qs from "query-string";
 
 const DeleteMessageModal = () => {
-  const { onOpen, isOpen, onClose, type, data } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
   const { apiUrl, query } = data;
 
-  const { server, channel } = data;
   const [isLoading, setIsLoading] = useState(false);
 
   const isModalOpen = isOpen && type === "deleteMessage";
