@@ -11,6 +11,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import NavigationItem from "./navigation-item";
 import { ModeToggle } from "@/components/mode-toggle";
 import { UserButton } from "@clerk/nextjs";
+import UserAvatar from "../user-avatar";
+import Logo from "../logo";
 
 const NavigationSidebar = async () => {
   const profile = await currentProfile();
@@ -38,7 +40,7 @@ const NavigationSidebar = async () => {
             <NavigationItem
               id={server.id}
               name={server.name}
-              imageUrl={server.imageUrl}
+              imageUrl={JSON.parse(server.imageUrl).url}
             />
           </div>
         ))}
@@ -53,6 +55,7 @@ const NavigationSidebar = async () => {
             },
           }}
         />
+        <Logo />
       </div>
     </div>
   );

@@ -6,16 +6,23 @@ import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
 // route
 import { redirect } from "next/navigation";
+// components
 import ChatHeader from "@/components/chat/chat-header";
+import ChatMessages from "@/components/chat/chat-messages";
+import ChatInput from "@/components/chat/chat-input";
+import { MediaRoom } from "@/components/media-room";
 
 interface MemberIdPageProps {
   params: {
     memberId: string;
     serverId: string;
   };
+  searchParams: {
+    video?: boolean;
+  };
 }
 
-const MemberIdPage = async ({ params }: MemberIdPageProps) => {
+const MemberIdPage = async ({ params, searchParams }: MemberIdPageProps) => {
   const profile = await currentProfile();
 
   if (!profile) {
@@ -24,6 +31,7 @@ const MemberIdPage = async ({ params }: MemberIdPageProps) => {
   }
 
   const { serverId, memberId } = await Promise.resolve(params);
+  const { video } = await Promise.resolve(searchParams);
 
   const currentMember = await db.member.findFirst({
     where: {
@@ -59,6 +67,34 @@ const MemberIdPage = async ({ params }: MemberIdPageProps) => {
         imageUrl={otherMember.profile.imageUrl}
         serverId={serverId}
         type="conversation"
+      />
+      {video && (
+        <MediaRoom chatId={conversation.id} video={true} audio={true} />
+      )}
+      {!video && (
+        <>
+          <ChatMessages
+            member={currentMember}
+            name={otherMember.profile.name}
+            chatId={conversation.id}
+            type="conversation"
+            apiUrl="/api/direct-messages"
+            paramKey="conversationId"
+            paramValue={conversation.id}
+            socketUrl="/api/socket/direct-messages"
+            socketQuery={{
+              conversationId: conversation.id,
+            }}
+          />
+        </>
+      )}
+      <ChatInput
+        name={otherMember.profile.name}
+        type="conversation"
+        apiUrl="/api/socket/direct-messages"
+        query={{
+          conversationId: conversation.id,
+        }}
       />
     </div>
   );
