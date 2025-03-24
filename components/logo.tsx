@@ -6,7 +6,7 @@ const Logo = () => {
     <ActionTooltip label="SyncUp" side="right">
       <div className="rounded-full flex items-center justify-center overflow-hidden h-[48px] w-[48px]">
         <Image
-          src="https://jn51c7mn3k.ufs.sh/f/A7wRGFfLGbsQHSWBC6TvgEe1j9DiAtNkSoTG5K8aWLfUlXdr"
+          src={process.env.NEXT_PUBLIC_LOGO_URL || ''}
           alt="SyncUp"
           width={100} 
           height={100}
